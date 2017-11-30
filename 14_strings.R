@@ -188,4 +188,20 @@ str_view(x, "C{2,3}?")
 
 # 14.3.4.1 Exercises ------------------------------------------------------
 
+str_view("sdpoCCCCCCCpofsd", "CC?")
+str_view("sdpoCCCCCCCpofsd", "C{2}")
+str_view("sdpoCCCCCCCpofsd", "CC+")
+str_view("sdpoCCCCCCCpofsd", "C{2,}")
+str_view("sdpoCCCCCCCpofsd", "CC*")
+str_view("sdpoCCCCCCCpofsd", "CC{0,}")
 
+str_view(c("any thing.", "and(9)", "errythin'"), "^.*$")
+str_view(c("{123}", "{14.9}", "{91218}"), "\\{.+\\}")
+str_view(c("\\\\\\\\", "\\\\\\"), "\\\\{4}")
+
+str_view(words, "^[^aeiou]{3}", match = T)
+str_view(words, "[aeiou]{3,}", match = T)
+str_view(words, "([aeiou][^aeiou]){2,}", match = T)
+
+
+# The rest will not be too useful for me I feel...
