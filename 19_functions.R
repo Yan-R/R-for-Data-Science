@@ -103,3 +103,124 @@ but_last <- function(x) {
 
 but_last(c("cool", "man"))
 
+library(lubridate)
+now()
+
+greeting <- function() {
+  if (hour(now()) >= 0 && hour(now()) < 12) {
+    print("Good morning!")
+  } else if (hour(now()) >= 12 && hour(now()) < 18) {
+    print("Good afternoon!")
+  } else {
+    print("Good evening!")
+  }
+}
+greeting()
+
+fizzbuzz <- function(x) {
+  if (x %% 3 == 0 && x %% 5 == 0) {
+    print("fizzbuzz")
+  } else if (x %% 3 == 0) {
+    print("fizz")
+  } else if (x %% 5 == 0) {
+    print("buzz")
+  } else {
+    print(x)
+  }
+}
+fizzbuzz(33)
+
+if (temp <= 0) {
+  "freezing"
+} else if (temp <= 10) {
+  "cold"
+} else if (temp <= 20) {
+  "cool"
+} else if (temp <= 30) {
+  "warm"
+} else {
+  "hot"
+}
+
+temp <- seq(-10, 50, by = 5)
+
+cut(temp, breaks = c(-Inf, 0, 10, 20, 30, Inf), labels = c("freezing", "cold", "cool", "warm", "hot"), right = T)
+cut(temp, breaks = c(-Inf, 0, 10, 20, 30, Inf), labels = c("freezing", "cold", "cool", "warm", "hot"), right = F)
+
+switch(1, "one", "two", "three", "four")
+
+switch("a", 
+       a = ,
+       b = "ab",
+       c = ,
+       d = "cd"
+)
+
+range_mean_ci <- function(x, conf = 0.95) {
+  se <- sd(x) / sqrt(length(x))
+  alpha <- 1 - conf
+  ok <- mean(x) + se * qnorm(c(alpha / 2, 1 - alpha / 2))
+  ok[2] - ok[1]
+}
+
+range_mean_ci(runif(100), conf = 0.99)
+
+wt_mean <- function(x, w) {
+  sum(x * w) / sum(w)
+}
+wt_var <- function(x, w) {
+  mu <- wt_mean(x, w)
+  sum(w * (x - mu) ^ 2) / sum(w)
+}
+wt_sd <- function(x, w) {
+  sqrt(wt_var(x, w))
+}
+
+wt_mean(1:6, 1:3)
+
+wt_mean <- function(x, w) {
+  if(length(x) != length(w)) {
+    stop("`x` and `w` must be the same length", call. = F)
+  }
+  sum(x * w) / sum(w)
+}
+wt_mean(1:6, 1:3)
+
+wt_mean <- function(x, w, na.rm = FALSE) {
+  stopifnot(is.logical(na.rm), length(na.rm) == 1)
+  stopifnot(length(x) == length(w))
+  if (na.rm) {
+    miss <- is.na(x) | is.na(w)
+    x <- x[!miss]
+    w <- w[!miss]
+  }
+  
+  sum(x * w) / sum(w)
+}
+wt_mean(1:6, 1:6, na.rm = c(F, T))
+
+
+commas <- function(...) {stringr::str_c(..., collapse = ", ")}
+commas(letters[1:10])
+commas(c("pizza", "fruit", "cake", "milk", "cheese", "biscotto", "arancini", "bruschetta"))
+
+title <- function(..., pad = "-") {
+  title <- paste0(...)
+  width <- getOption("width") - nchar(title) - 5
+  cat(title, " ", stringr::str_dup(pad, width), "\n", sep = "")
+}
+
+title("Life is very good")
+
+commas(letters, collapse = "-")
+
+`+` <- function(x, y) {
+  if (runif(1) < 0.1) {
+    sum(x, y)
+  } else {
+    sum(x, y) * 1.1
+  }
+}
+table(replicate(1000, 1 + 2))
+
+rm(`+`)
